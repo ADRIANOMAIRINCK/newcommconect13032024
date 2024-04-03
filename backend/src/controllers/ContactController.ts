@@ -71,13 +71,13 @@ export const getContact = async (
 export const store = async (req: Request, res: Response): Promise<Response> => {
   const { companyId } = req.user;
   const newContact: ContactData = req.body;
-  newContact.number = newContact.number.replace("-", "").replace(" ", "");
+  newContact.number = newContact.number.replace(/[^\d-]/g, ""); //74 newContact.number = newContact.number.replace("-", "").replace(" ", "");
 
   const schema = Yup.object().shape({
     name: Yup.string().required(),
     number: Yup.string()
       .required()
-      .matches(/^\d+$/, "Invalid number format. Only numbers is allowed.")
+      .matches(/^[\d]+$/, "Invalid number format. Only numbers is allowed.") //80.matches(/^\d+$/, "Invalid number format. Only numbers is allowed.")
   });
 
   try {
@@ -88,7 +88,7 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
 
   await CheckIsValidContact(newContact.number, companyId);
   const validNumber = await CheckContactNumber(newContact.number, companyId);
-  const number = validNumber.jid.replace(/\D/g, "");
+  const number = validNumber.jid.replace(/[^\d-]/g, ""); //const number = validNumber.jid.replace(/\D/g, "");
   newContact.number = number;
 
   /**
@@ -130,7 +130,7 @@ export const update = async (
   const schema = Yup.object().shape({
     name: Yup.string(),
     number: Yup.string().matches(
-      /^\d+$/,
+      /^[\d-]+$/,
       "Invalid number format. Only numbers is allowed."
     )
   });
@@ -143,7 +143,7 @@ export const update = async (
 
   await CheckIsValidContact(contactData.number, companyId);
   const validNumber = await CheckContactNumber(contactData.number, companyId);
-  const number = validNumber.jid.replace(/\D/g, "");
+  const number = validNumber.jid.replace(/[^\d-]/g, ""); //const number = validNumber.jid.replace(/\D/g, "");
   contactData.number = number;
 
   const { contactId } = req.params;

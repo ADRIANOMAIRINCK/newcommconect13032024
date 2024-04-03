@@ -121,20 +121,37 @@ export const send = async (req: Request, res: Response): Promise<Response> => {
     const body = messageData.body;
 
     const companyId = whatsapp.companyId;
-
-    const CheckValidNumber = await CheckContactNumber(numberToTest, companyId);
-    const number = CheckValidNumber.jid.replace(/\D/g, "");
-    const profilePicUrl = await GetProfilePicUrl(
-      number,
-      companyId
-    );
-    const contactData = {
-      name: `${number}`,
-      number,
-      profilePicUrl,
-      isGroup: false,
-      companyId
-    };
+    let contactData : any;
+    if (numberToTest.length <= 15){
+      const CheckValidNumber = await CheckContactNumber(numberToTest, companyId);
+      const number = CheckValidNumber.jid.replace(/[^\d-]/g, "");
+   
+      const profilePicUrl = await GetProfilePicUrl(
+        number,
+        companyId
+      );
+       contactData = {
+        name: `${number}`,
+        number,
+        profilePicUrl,
+        isGroup: false,
+        companyId
+      };
+  }
+  else{
+  
+   const profilePicUrl='';
+    contactData = {
+        name: `${numberToTest}`,
+        number: numberToTest,
+        profilePicUrl,
+        isGroup: true,
+        companyId
+      };
+  
+  
+  }
+  
 
     const contact = await CreateOrUpdateContactService(contactData);
 
@@ -148,7 +165,7 @@ export const send = async (req: Request, res: Response): Promise<Response> => {
             {
               whatsappId,
               data: {
-                number,
+                number:numberToTest,
                 body: body ? formatBody(body, contact) : media.originalname,
                 mediaPath: media.path,
                 fileName: media.originalname
