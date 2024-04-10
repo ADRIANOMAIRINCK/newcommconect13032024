@@ -28,7 +28,7 @@ import FilesOptions from './models/FilesOptions';
 import { addSeconds, differenceInSeconds } from "date-fns";
 import formatBody from "./helpers/Mustache";
 import { ClosedAllOpenTickets } from "./services/WbotServices/wbotClosedTickets";
-
+import CreateOrUpdateContactService from "./services/ContactServices/CreateOrUpdateContactService";
 
 const nodemailer = require('nodemailer');
 const CronJob = require('cron').CronJob;
@@ -708,7 +708,18 @@ async function handleDispatchCampaign(job) {
         include: [{ model: ContactListItem, as: "contact" }]
       }
     );
-
+    
+    if(campaignShipping.number.length<15){
+      const contactData = {
+        name: campaignShipping.contact.name,
+        number: campaignShipping.number,
+        isGroup: false,
+        companyId: campaign.companyId,
+       
+      };
+      
+      await CreateOrUpdateContactService(contactData);
+    }
     const chatId = `${campaignShipping.number}@s.whatsapp.net`;
 
     let body = campaignShipping.message;

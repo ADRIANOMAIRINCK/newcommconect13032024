@@ -26,7 +26,7 @@ const CreateOrUpdateContactService = async ({
   email = "",
   companyId,
   extraInfo = [],
-  whatsappId
+//  whatsappId
 }: Request): Promise<Contact> => {
   const number = isGroup ? rawNumber : rawNumber.replace(/[^\d-]/g, ""); //const number = isGroup ? rawNumber : rawNumber.replace(/[^0-9]/g, "");
 
@@ -42,12 +42,12 @@ const CreateOrUpdateContactService = async ({
 
   if (contact) {
     contact.update({ profilePicUrl });
-    console.log(contact.whatsappId)
-    if (isNil(contact.whatsappId === null)) {
-      contact.update({
-        whatsappId
-      });
-    }
+//    console.log(contact.whatsappId)
+//    if (isNil(contact.whatsappId === null)) {
+//      contact.update({
+//        whatsappId
+//      });
+//    }
     io.emit(`company-${companyId}-contact`, {
       action: "update",
       contact
@@ -61,7 +61,7 @@ const CreateOrUpdateContactService = async ({
       isGroup,
       extraInfo,
       companyId,
-      whatsappId
+//      whatsappId
     });
 
     io.emit(`company-${companyId}-contact`, {
