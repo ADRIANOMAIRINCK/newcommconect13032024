@@ -209,6 +209,7 @@ const UserModal = ({ open, onClose, userId }) => {
 													>
 														<MenuItem value="admin">Admin</MenuItem>
 														<MenuItem value="user">User</MenuItem>
+														<MenuItem value="usernivel2">User Nivel 2</MenuItem>
 													</Field>
 												</>
 											)}

@@ -347,6 +347,100 @@ const MainListItems = (props) => {
           </>
         )}
       />
+<Can
+	role={user.profile}
+	perform="drawer-usernivel2-items:view"
+	yes={() => (
+		<>
+			<Divider />
+			<ListSubheader inset>
+				
+				{i18n.t("mainDrawer.listItems.usernivel2")}
+			</ListSubheader>
+			{showCampaigns && (
+              <>
+                <ListItem
+                  button
+                  onClick={() => setOpenCampaignSubmenu((prev) => !prev)}
+                >
+                  <ListItemIcon>
+                    <EventAvailableIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={i18n.t("mainDrawer.listItems.campaigns")}
+                  />
+                  {openCampaignSubmenu ? (
+                    <ExpandLessIcon />
+                  ) : (
+                    <ExpandMoreIcon />
+                  )}
+                </ListItem>
+                <Collapse
+                  style={{ paddingLeft: 15 }}
+                  in={openCampaignSubmenu}
+                  timeout="auto"
+                  unmountOnExit
+                >
+                  <List component="div" disablePadding>
+                    <ListItem onClick={() => history.push("/campaigns")} button>
+                      <ListItemIcon>
+                        <ListIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Listagem" />
+                    </ListItem>
+                    <ListItem
+                      onClick={() => history.push("/contact-lists")}
+                      button
+                    >
+                      <ListItemIcon>
+                        <PeopleIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Listas de Contatos" />
+                    </ListItem>
+                    <ListItem
+                      onClick={() => history.push("/campaigns-config")}
+                      button
+                    >
+                      <ListItemIcon>
+                        <SettingsOutlinedIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="ConfiguraÃ§Ãµes" />
+                    </ListItem>
+                  </List>
+                </Collapse>
+              </>
+            )}
+
+{/*			<ListItemLink
+				to="/"
+				primary={i18n.t("mainDrawer.listItems.dashboard")}
+				icon={<DashboardOutlinedIcon />} 
+ 
+			/>
+
+			<ListItemLink
+             			 to="/connections"
+             			 primary={i18n.t("mainDrawer.listItems.connections")}
+              			icon={
+                <Badge badgeContent={connectionWarning ? "!" : 0} color="error">
+                  <SyncAltIcon />
+                </Badge>
+              }
+           		 />
+
+			<ListItemLink
+				to="/users"
+				primary={i18n.t("mainDrawer.listItems.users")}
+				 icon={<PeopleAltOutlinedIcon />}
+			/>
+			<ListItemLink
+				to="/queues"
+				primary={i18n.t("mainDrawer.listItems.queues")}
+				icon={<AccountTreeOutlinedIcon />}
+			/>*/}
+		</>
+	)}
+/>
 
       <Can
         role={user.profile}

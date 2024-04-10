@@ -417,6 +417,7 @@ const messages = {
           queues: "Filas & Chatbot",
           tags: "Tags",
           administration: "Administração",
+          usernivel2: "Usuario Nivel 2",
           users: "Usuários",
           settings: "Configurações",
           helps: "Ajuda",

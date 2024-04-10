@@ -164,6 +164,10 @@ const TicketsManagerTabs = () => {
     if (user.profile.toUpperCase() === "ADMIN") {
       setShowAllTickets(true);
     }
+    if (user.profile.toUpperCase() === "USERNIVEL2") {
+      setShowAllTickets(true);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
